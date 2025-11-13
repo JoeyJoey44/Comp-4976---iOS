@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct About: View {
+struct AboutView: View {
     @AppStorage("isDarkMode") private var isDarkMode = false
     
     var body: some View {
@@ -35,5 +35,5 @@ struct About: View {
 }
 
 #Preview {
-    About()
+    AboutView()
 }

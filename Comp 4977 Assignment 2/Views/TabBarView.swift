@@ -3,21 +3,21 @@ import SwiftUI
 struct TabBarView: View {
     var body: some View {
         TabView {
-            HomePage()
+            HomeView()
                 .tabItem {
                     Image(systemName: "house.fill")
                         .foregroundStyle(.blue)
                     Text("Home")
                 }
             
-            SettingsPage()
+            SettingsView()
                 .tabItem {
                     Image(systemName: "gearshape.fill")
                         .foregroundStyle(.green)
                     Text("Settings")
                 }
             
-            About()
+            AboutView()
                 .tabItem {
                     Image(systemName: "info.circle")
                         .foregroundStyle(.green)

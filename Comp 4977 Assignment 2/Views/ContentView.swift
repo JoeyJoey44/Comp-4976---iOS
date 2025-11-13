@@ -1,13 +1,17 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var viewModel = ContentViewViewModel()
+    
     var body: some View {
-        
-//        Uncomment the line below if you want to get past the Login/Register pages
-//        TabBarView()
-        
-        LoginPage()
-        
+        Group{
+            if viewModel.isSignedIn {
+                TabBarView()
+            } else {
+                LoginView()
+            }
+        }
+        .environmentObject(viewModel)
     }
 }
 

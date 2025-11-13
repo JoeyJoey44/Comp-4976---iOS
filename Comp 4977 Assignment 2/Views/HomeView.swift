@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct HomePage: View {
+struct HomeView: View {
     @State private var messageText: String = ""
     
     var body: some View {
@@ -99,5 +99,5 @@ struct HomePage: View {
 }
 
 #Preview {
-    HomePage()
+    HomeView()
 }

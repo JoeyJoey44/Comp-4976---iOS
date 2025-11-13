@@ -7,8 +7,10 @@
 
 import SwiftUI
 
-struct SettingsPage: View {
+struct SettingsView: View {
     @AppStorage("isDarkMode") private var isDarkMode = false
+    @EnvironmentObject var session: ContentViewViewModel
+    @State private var showLogoutAlert = false
     
     var body: some View {
         GeometryReader{ geometry in
@@ -47,9 +49,29 @@ struct SettingsPage: View {
                     )
                     .padding(.horizontal, 30)
                     
+                    // Logout button
+                    Button(action: {
+                        showLogoutAlert = true
+                    }) {
+                        Text("Log Out")
+                            .font(.system(size: 18, weight: .semibold, design: .rounded))
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.red)
+                            .cornerRadius(10)
+                            .padding(.horizontal, 30)
+                    }
+                    .alert("Confirm Logout", isPresented: $showLogoutAlert) {
+                        Button("Log Out", role: .destructive) {
+                            session.logout()
+                        }
+                        Button("Cancel", role: .cancel) { }
+                    } message: {
+                        Text("Are you sure you want to log out?")
+                    }
+
                     Spacer()
-                    
-                   
                 }
                 .padding(.top, 20)
                 .zIndex(1.0)
@@ -60,5 +82,5 @@ struct SettingsPage: View {
 }
 
 #Preview {
-    SettingsPage()
+    SettingsView()
 }

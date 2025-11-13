@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct RegisterPage: View {
+struct RegisterView: View {
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var confirmPassword: String = ""
@@ -129,7 +129,7 @@ struct RegisterPage: View {
                             .foregroundColor(.white.opacity(0.8))
                             .font(.system(size: 16, weight: .medium))
                         
-                        NavigationLink(destination: LoginPage()) {
+                        NavigationLink(destination: LoginView()) {
                             Text("Log in")
                                 .foregroundColor(.white)
                                 .font(.system(size: 16, weight: .bold))
@@ -146,6 +146,6 @@ struct RegisterPage: View {
 
 #Preview {
     NavigationView {
-        RegisterPage()
+        RegisterView()
     }
 }
