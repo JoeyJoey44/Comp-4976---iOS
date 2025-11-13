@@ -1,0 +1,87 @@
+# Xcode
+# Build generated
+build/
+DerivedData/
+*.xcworkspace/contents.xcworkspacedata
+
+# User settings
+*.xcuserstate
+xcuserdata/
+*.xcuserdatad
+
+# Xcode temporary files
+*.moved-aside
+*.xccheckout
+*.xcscmblueprint
+
+# Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# Swift Package Manager
+/.build/
+/.swiftpm/
+Packages/
+Package.resolved
+
+# CocoaPods
+Pods/
+Podfile.lock
+/.cocoapods/
+
+# Carthage
+Carthage/Build/
+
+# fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/README.md
+
+# Cocoa/Carthage/other compiled
+*.framework
+*.dSYM
+*.ipa
+
+# Provisioning and keys
+*.mobileprovision
+*.cer
+*.p12
+
+# macOS
+.DS_Store
+.AppleDouble
+._*
+.LSOverride
+
+# Thumbnails
+Icon
+Icon?
+
+# Icon must end with two "." characters
+# Files that might appear in the root of a volume mounted by macOS
+.VolumeIcon.icns
+
+# Temporary files
+*.swp
+*.swo
+*~
+
+# Editor specific
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Derived files from localization tools
+*.strings
+
+# If you use CocoaPods and want to keep the workspace, uncomment the next line
+# !Pods/
+
+# Ignore/Xcode project user-specific files
+*.xcuserstate
+
+# Ignore generated project files (optional — uncomment if you don't want these tracked)
+# *.pbxuser
+# !*.xcodeproj/project.pbxproj
