@@ -8,23 +8,44 @@
 
 import Foundation
 
+/// Reusable helpers used across view models and network code.
+///
+/// This struct contains small, focused helpers that the app relies on, such as token
+/// persistence wrappers (which delegate to the keychain manager), a robust JSON decoder
+/// tolerant to multiple date formats, and debug helpers for pretty-printing JSON and
+/// masking tokens.
 struct Utils {
 
     // MARK: - Token helpers
+    /// Persist (or remove) the JWT token in the Keychain.
+    /// - Parameter token: Token string to save. If `nil` the token will be removed.
     static func saveToken(_ token: String?) {
         // Persist token securely in Keychain
         KeychainTokenManager.saveToken(token)
     }
 
+    /// Retrieve the stored token from Keychain, if present.
+    /// - Returns: The token string or `nil` when missing.
     static func getToken() -> String? {
         KeychainTokenManager.getToken()
     }
 
+    /// Remove the token from Keychain.
     static func removeToken() {
         KeychainTokenManager.removeToken()
     }
 
     // MARK: - Robust JSON decoder (handles ISO8601 with microseconds, numeric epochs, and common formats)
+    /// Create a JSONDecoder configured to tolerate a variety of date formats.
+    ///
+    /// The returned decoder will successfully decode dates expressed as:
+    /// - Numeric epoch timestamps (seconds or milliseconds),
+    /// - ISO8601 with fractional seconds, and common RFC/posix formats.
+    /// - Strings containing numeric timestamps such as `/Date(1234567890)/`.
+    ///
+    /// Use this decoder for API responses where the date format may vary between endpoints
+    /// or servers.
+    /// - Returns: A configured `JSONDecoder` instance.
     static func robustDecoder() -> JSONDecoder {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .custom { decoder -> Date in
@@ -79,6 +100,10 @@ struct Utils {
         return decoder
     }
 
+    /// Pretty-print JSON `Data` for logs and debugging.
+    ///
+    /// - Parameter data: Raw JSON `Data`.
+    /// - Returns: A pretty-printed JSON `String` when possible, otherwise a best-effort UTF-8 string or a placeholder.
     static func prettyJSON(_ data: Data) -> String {
         if let obj = try? JSONSerialization.jsonObject(with: data, options: []),
            let pretty = try? JSONSerialization.data(withJSONObject: obj, options: [.prettyPrinted]),
@@ -88,6 +113,9 @@ struct Utils {
         return String(data: data, encoding: .utf8) ?? "<non-utf8 data>"
     }
 
+    /// Return a masked representation of a JWT-like token, hiding sensitive sections.
+    /// - Parameter token: The token string to mask.
+    /// - Returns: A short masked representation suitable for logs (e.g. "<redacted>.xyz").
     static func maskedToken(_ token: String?) -> String {
         guard let t = token else { return "<nil>" }
         let parts = t.split(separator: ".")
