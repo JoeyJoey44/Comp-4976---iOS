@@ -1,0 +1,63 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "About" : {
+
+    },
+    "Already have an account?" : {
+
+    },
+    "Andre, Joey, Yujin" : {
+
+    },
+    "Are you sure you want to log out?" : {
+
+    },
+    "Assignment 2 App" : {
+
+    },
+    "Cancel" : {
+
+    },
+    "Confirm Logout" : {
+
+    },
+    "Create one" : {
+
+    },
+    "Dark Mode" : {
+
+    },
+    "Don’t have an account?" : {
+
+    },
+    "Home" : {
+
+    },
+    "Input Field" : {
+
+    },
+    "Log in" : {
+
+    },
+    "Log Out" : {
+
+    },
+    "Login" : {
+
+    },
+    "Register" : {
+
+    },
+    "Send" : {
+
+    },
+    "Settings" : {
+
+    }
+  },
+  "version" : "1.0"
+}

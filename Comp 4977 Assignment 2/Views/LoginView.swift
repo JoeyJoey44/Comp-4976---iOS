@@ -44,7 +44,7 @@ struct LoginView: View {
                     // MARK: Login Button
                     PrimaryButtonView(title: "Log In") {
                         Task {
-                            await viewModel.login()
+                            await viewModel.login() // call login
                             // If login succeeded, optimistically mark session as signed in
                             if let user = viewModel.loggedInUser {
                                 // Update session on main actor so the UI can switch immediately

@@ -12,6 +12,7 @@ struct TextInputFieldView: View {
     let placeholder: String
     @Binding var text: String
     var isSecure: Bool = false
+    @State private var reveal: Bool = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
@@ -20,9 +21,20 @@ struct TextInputFieldView: View {
                 .foregroundColor(.white)
                 .shadow(color: .black.opacity(0.3), radius: 2, x: 2, y: 2)
             
-            Group {
+            HStack {
                 if isSecure {
-                    SecureField(placeholder, text: $text)
+                    if reveal {
+                        TextField(placeholder, text: $text)
+                            .autocapitalization(.none)
+                            .disableAutocorrection(true)
+                    } else {
+                        SecureField(placeholder, text: $text)
+                    }
+
+                    Button(action: { reveal.toggle() }) {
+                        Image(systemName: reveal ? "eye" : "eye.slash")
+                            .foregroundColor(.white.opacity(0.9))
+                    }
                 } else {
                     TextField(placeholder, text: $text)
                         .autocapitalization(.none)

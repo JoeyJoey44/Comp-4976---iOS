@@ -1,9 +1,9 @@
 import SwiftUI
 
 struct RegisterView: View {
-    @State private var email: String = ""
-    @State private var password: String = ""
-    @State private var confirmPassword: String = ""
+    @StateObject private var viewModel = RegisterViewViewModel()
+    @EnvironmentObject var session: ContentViewViewModel
+    
     
     var body: some View {
         GeometryReader { geometry in
@@ -21,107 +21,80 @@ struct RegisterView: View {
                         .shadow(color: .black.opacity(0.4), radius: 4, x: 4, y: 4)
                     
                     VStack(spacing: 20) {
-                        // Email
-                        VStack(alignment: .leading, spacing: 6) {
-                            Text("Email")
-                                .font(.system(size: 18, weight: .semibold, design: .rounded))
-                                .foregroundColor(.white)
-                                .shadow(color: .black.opacity(0.3), radius: 2, x: 2, y: 2)
-                            
-                            TextField("Enter your email", text: $email)
-                                .keyboardType(.emailAddress)
-                                .autocapitalization(.none)
-                                .disableAutocorrection(true)
-                                .padding()
-                                .foregroundColor(.white)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 24)
-                                        .stroke(
-                                            LinearGradient(colors: [.backGround2, .backGround1],
-                                                           startPoint: .topLeading,
-                                                           endPoint: .bottomTrailing),
-                                            lineWidth: 3
-                                        )
-                                        .shadow(color: .black.opacity(0.4), radius: 4, x: 0, y: 4)
-                                )
-                                .frame(width: geometry.size.width * 0.85)
-                        }
+                        // MARK: First name field
+                        TextInputFieldView(
+                            title: "First Name",
+                            placeholder: "Enter your first name",
+                            text: $viewModel.firstName
+                        )
+                        .frame(width: geometry.size.width * 0.85)
+
+                        // MARK: Last name field
+                        TextInputFieldView(
+                            title: "Last Name",
+                            placeholder: "Enter your last name",
+                            text: $viewModel.lastName
+                        )
+                        .frame(width: geometry.size.width * 0.85)
+
+                        // MARK: Email field
+                        TextInputFieldView(
+                            title: "Email",
+                            placeholder: "Enter your email",
+                            text: $viewModel.email
+                        )
+                        .frame(width: geometry.size.width * 0.85)
                         
-                        // Password
-                        VStack(alignment: .leading, spacing: 6) {
-                            Text("Password")
-                                .font(.system(size: 18, weight: .semibold, design: .rounded))
-                                .foregroundColor(.white)
-                                .shadow(color: .black.opacity(0.3), radius: 2, x: 2, y: 2)
-                            
-                            SecureField("Enter your password", text: $password)
-                                .padding()
-                                .foregroundColor(.white)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 24)
-                                        .stroke(
-                                            LinearGradient(colors: [.backGround2, .backGround1],
-                                                           startPoint: .topLeading,
-                                                           endPoint: .bottomTrailing),
-                                            lineWidth: 3
-                                        )
-                                        .shadow(color: .black.opacity(0.4), radius: 4, x: 0, y: 4)
-                                )
-                                .frame(width: geometry.size.width * 0.85)
-                        }
+                        // MARK: Password field
+                        TextInputFieldView(
+                            title: "Password",
+                            placeholder: "Enter your password",
+                            text: $viewModel.password,
+                            isSecure: true
+                        )
+                        .frame(width: geometry.size.width * 0.85)
                         
-                        // Confirm Password
-                        VStack(alignment: .leading, spacing: 6) {
-                            Text("Confirm Password")
-                                .font(.system(size: 18, weight: .semibold, design: .rounded))
-                                .foregroundColor(.white)
-                                .shadow(color: .black.opacity(0.3), radius: 2, x: 2, y: 2)
-                            
-                            SecureField("Re-enter your password", text: $confirmPassword)
-                                .padding()
-                                .foregroundColor(.white)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 24)
-                                        .stroke(
-                                            LinearGradient(colors: [.backGround2, .backGround1],
-                                                           startPoint: .topLeading,
-                                                           endPoint: .bottomTrailing),
-                                            lineWidth: 3
-                                        )
-                                        .shadow(color: .black.opacity(0.4), radius: 4, x: 0, y: 4)
-                                )
-                                .frame(width: geometry.size.width * 0.85)
-                        }
+                        // MARK: Confirm Password field
+                        TextInputFieldView(
+                            title: "Confirm Password",
+                            placeholder: "Re-enter your password",
+                            text: $viewModel.confirmPassword,
+                            isSecure: true
+                        )
+                        .frame(width: geometry.size.width * 0.85)
                     }
                     
-                    // Register button
-                    Button(action: {
-                        print("Register Button Pressed...")
-                    }) {
-                        RoundedRectangle(cornerRadius: 24)
-                            .fill(
-                                LinearGradient(colors: [.backGround1, .backGround2],
-                                               startPoint: .topLeading,
-                                               endPoint: .bottomTrailing)
-                            )
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 24)
-                                    .stroke(
-                                        LinearGradient(colors: [.backGround2, .backGround1],
-                                                       startPoint: .topLeading,
-                                                       endPoint: .bottomTrailing),
-                                        lineWidth: 1.5
-                                    )
-                            )
-                            .frame(width: geometry.size.width * 0.5, height: geometry.size.height * 0.08)
-                            .shadow(color: .black.opacity(0.4), radius: 4, x: 0, y: 4)
-                            .overlay(
-                                Text("Register")
-                                    .font(.system(size: 24, weight: .bold, design: .rounded))
-                                    .foregroundColor(.white)
-                                    .shadow(color: .black.opacity(0.4), radius: 4, x: 2, y: 2)
-                            )
+                    // Show validation / server errors
+                    if !viewModel.errorMessage.isEmpty {
+                        Text(viewModel.errorMessage)
+                            .foregroundColor(.red)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 24)
                     }
+
+                    // MARK: Register button
+                    PrimaryButtonView(title: "Register"){
+                        Task {
+                            // Use view model validation
+                            guard viewModel.validateInputs() else { return }
+
+                            await viewModel.register()
+                            if let user = viewModel.registeredUser {
+                                // Update shared session and trigger profile validation
+                                await MainActor.run {
+                                    session.currentUser = user
+                                    session.isSignedIn = true
+                                }
+
+                                // Validate session/profile via ContentViewViewModel
+                                await session.validateSession()
+                            }
+                        }
+                    }
+                    .frame(width: geometry.size.width * 0.55)
+                    .padding(.top, 10)
+                    .disabled(!viewModel.canRegister || viewModel.isLoading)
+                    .opacity(viewModel.isLoading ? 0.6 : 1.0)
                     
                     // Anchor to login page
                     HStack {
@@ -147,5 +120,6 @@ struct RegisterView: View {
 #Preview {
     NavigationView {
         RegisterView()
+            .environmentObject(ContentViewViewModel())
     }
 }
