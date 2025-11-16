@@ -48,28 +48,6 @@ struct SettingsView: View {
                             .fill(.ultraThinMaterial)
                     )
                     .padding(.horizontal, 30)
-                    
-                    // Logout button
-                    Button(action: {
-                        showLogoutAlert = true
-                    }) {
-                        Text("Log Out")
-                            .font(.system(size: 18, weight: .semibold, design: .rounded))
-                            .foregroundColor(.white)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color.red)
-                            .cornerRadius(10)
-                            .padding(.horizontal, 30)
-                    }
-                    .alert("Confirm Logout", isPresented: $showLogoutAlert) {
-                        Button("Log Out", role: .destructive) {
-                            session.logout()
-                        }
-                        Button("Cancel", role: .cancel) { }
-                    } message: {
-                        Text("Are you sure you want to log out?")
-                    }
 
                     Spacer()
                 }

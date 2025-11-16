@@ -19,6 +19,7 @@ struct ContentView: View {
     var accountView: some View {
         VStack {
             TabView {
+                // MARK: Home
                 HomeView()
                     .tabItem {
                         Image(systemName: "house.fill")
@@ -26,6 +27,18 @@ struct ContentView: View {
                         Text("Home")
                     }
                 
+                // MARK: AI
+//                AIView()
+                
+                // MARK: Profile
+                ProfileView()
+                    .tabItem {
+                        Image(systemName: "person.crop.circle.fill")
+                            .foregroundStyle(.blue)
+                        Text("Profile")
+                    }
+                
+                // MARK: Settings
                 SettingsView()
                     .tabItem {
                         Image(systemName: "gearshape.fill")
@@ -33,6 +46,7 @@ struct ContentView: View {
                         Text("Settings")
                     }
                 
+                // MARK: About
                 AboutView()
                     .tabItem {
                         Image(systemName: "info.circle")
