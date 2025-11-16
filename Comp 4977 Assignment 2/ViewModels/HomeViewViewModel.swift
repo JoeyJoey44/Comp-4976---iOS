@@ -17,20 +17,20 @@ class HomeViewViewModel: ObservableObject {
     @Published var eventsByDate: [Date: [Event]] = [:]
 
     let dmaOptions: [(code: Int, name: String)] = [
-        (500, "All of Canada"),
+//        (500, "All of Canada"),
         (504, "Burnaby / New Westminster / Surrey"),
-        (505, "Calgary"),
-        (506, "Edmonton"),
-        (508, "Hamilton-Niagara"),
-        (510, "London-Sarnia"),
-        (518, "Okanagan-Kootenays"),
-        (519, "Ottawa"),
-        (522, "Montreal"),
+//        (505, "Calgary"),
+//        (506, "Edmonton"),
+//        (508, "Hamilton-Niagara"),
+//        (510, "London-Sarnia"),
+//        (518, "Okanagan-Kootenays"),
+//        (519, "Ottawa"),
+//        (522, "Montreal"),
         (527, "Toronto"),
         (528, "Vancouver"),
-        (529, "Sunshine Coast & Islands"),
-        (530, "Winnipeg-Brandon"),
-        (531, "Yukon")
+//        (529, "Sunshine Coast & Islands"),
+//        (530, "Winnipeg-Brandon"),
+//        (531, "Yukon")
     ]
 
     func fetchEvents() async {

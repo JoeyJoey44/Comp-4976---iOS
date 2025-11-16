@@ -27,7 +27,12 @@ struct ContentView: View {
                     }
                 
                 // MARK: AI
-//                AIView()
+                AIView()
+                    .tabItem {
+                        Image(systemName:"message.badge.waveform.fill")
+                            .foregroundStyle(.blue)
+                        Text("AI")
+                    }
                 
                 // MARK: Profile
                 ProfileView()

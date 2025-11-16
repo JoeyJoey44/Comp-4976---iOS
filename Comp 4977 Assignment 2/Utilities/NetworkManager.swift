@@ -112,7 +112,17 @@ final class NetworkManager: NetworkManaging {
             throw NetworkError.httpError(statusCode: http.statusCode, data: data)
         }
 
-        return try decoder.decode(T.self, from: data)
+        do {
+            return try decoder.decode(T.self, from: data)
+        } catch {
+            // If the caller expects a plain String but the server returned raw text
+            // (not a JSON string), decoding into String via JSONDecoder will fail.
+            // As a convenience, fallback to returning the UTF-8 string when T == String.
+            if T.self == String.self, let s = String(data: data, encoding: .utf8) as? T {
+                return s
+            }
+            throw error
+        }
     }
 }
 
