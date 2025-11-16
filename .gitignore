@@ -85,3 +85,8 @@ Icon?
 # Ignore generated project files (optional — uncomment if you don't want these tracked)
 # *.pbxuser
 # !*.xcodeproj/project.pbxproj
+
+# Database files (SQLite)
+*.db
+*.db-shm
+*.db-wal

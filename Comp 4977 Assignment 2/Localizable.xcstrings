@@ -4,6 +4,16 @@
     "" : {
 
     },
+    "%@ - %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ - %2$@"
+          }
+        }
+      }
+    },
     "About" : {
 
     },
@@ -22,6 +32,9 @@
     "Cancel" : {
 
     },
+    "City" : {
+
+    },
     "Confirm Logout" : {
 
     },
@@ -34,10 +47,16 @@
     "Don’t have an account?" : {
 
     },
+    "Events" : {
+
+    },
     "Home" : {
 
     },
     "Input Field" : {
+
+    },
+    "Loading events..." : {
 
     },
     "Log in" : {
