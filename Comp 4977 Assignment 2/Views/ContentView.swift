@@ -6,7 +6,6 @@ struct ContentView: View {
     var body: some View {
         Group{
             if viewModel.isSignedIn {
-//                TabBarView()
                 accountView
             } else {
                 LoginView()

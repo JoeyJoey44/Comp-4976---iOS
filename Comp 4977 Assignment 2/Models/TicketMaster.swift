@@ -22,14 +22,23 @@ struct EmbeddedEvents: Decodable {
 struct Event: Decodable, Identifiable {
     let id: String
     let name: String
+    let url: String              // <-- must match JSON
+    let info: String?            // <-- optional from JSON
     let images: [EventImage]
     let dates: EventDates?
     let embedded: EventEmbedded?
 
     enum CodingKeys: String, CodingKey {
-        case id, name, images, dates
+        case id
+        case name
+        case url
+        case info
+        case images
+        case dates
         case embedded = "_embedded"
     }
+
+    // MARK: Computed properties
 
     var venueName: String {
         embedded?.venues.first?.name ?? "Unknown Venue"
@@ -50,7 +59,42 @@ struct Event: Decodable, Identifiable {
     var displayDate: Date? {
         dates?.start?.dateTime
     }
+
+    var mainImageURL: String {
+        images.first?.url ?? ""
+    }
+
+    var venue: Venue? {
+        embedded?.venues.first
+    }
+
+    var addressLine: String {
+        venue?.address?.line1 ?? "Address not available"
+    }
+
+    var latitude: Double? {
+        if let str = venue?.location?.latitude {
+            return Double(str)
+        }
+        return nil
+    }
+
+    var longitude: Double? {
+        if let str = venue?.location?.longitude {
+            return Double(str)
+        }
+        return nil
+    }
+
+    var eventDescription: String {
+        info ?? "No event description available."
+    }
+
+    var ticketURL: URL? {
+        URL(string: url)
+    }
 }
+
 
 struct EventImage: Decodable {
     let url: String
@@ -74,6 +118,18 @@ struct Venue: Decodable {
     let name: String
     let city: VenueCity?
     let state: VenueState?
+    let address: VenueAddress?
+    let location: VenueLocation?
+}
+
+struct VenueAddress: Decodable {
+    let line1: String?
+    let line2: String? // sometimes exists, optional
+}
+
+struct VenueLocation: Decodable {
+    let latitude: String?
+    let longitude: String?
 }
 
 struct VenueCity: Decodable {

@@ -41,15 +41,21 @@ struct EventRowView: View {
 }
 
 #Preview {
-    EventRowView(event: Event(
+        EventRowView(event: Event(
         id: "test1",
         name: "Test Concert",
+        url: "https://example.com/event/test1",
+        info: "Sample event for preview",
         images: [
             EventImage(url: "https://picsum.photos/200", width: 200, height: 200)
         ],
         dates: EventDates(start: EventStart(dateTime: Date())),
         embedded: EventEmbedded(venues: [
-            Venue(name: "Rogers Arena", city: VenueCity(name: "Vancouver"), state: VenueState(stateCode: "BC"))
+            Venue(name: "Rogers Arena",
+                  city: VenueCity(name: "Vancouver"),
+                  state: VenueState(stateCode: "BC"),
+                  address: VenueAddress(line1: "800 Griffiths Way", line2: nil),
+                  location: VenueLocation(latitude: "49.2778", longitude: "-123.1085"))
         ])
     ))
     .padding()

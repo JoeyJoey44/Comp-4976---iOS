@@ -74,24 +74,32 @@ extension HomeViewViewModel {
         let mockEvent = Event(
             id: "test1",
             name: "The Halluci Nation",
+            url: "https://example.com/event/test1",
+            info: "Sample event for preview",
             images: [EventImage(url: "https://picsum.photos/300", width: 300, height: 200)],
             dates: EventDates(start: EventStart(dateTime: Date())),
             embedded: EventEmbedded(venues: [
                 Venue(name: "Commodore Ballroom",
                       city: VenueCity(name: "Vancouver"),
-                      state: VenueState(stateCode: "BC"))
+                      state: VenueState(stateCode: "BC"),
+                      address: VenueAddress(line1: "868 Granville St", line2: nil),
+                      location: VenueLocation(latitude: "49.2830", longitude: "-123.1187"))
             ])
         )
 
         let mockEvent2 = Event(
             id: "test2",
             name: "Peach Pit Live",
+            url: "https://example.com/event/test2",
+            info: "Sample event for preview",
             images: [EventImage(url: "https://picsum.photos/301", width: 300, height: 200)],
             dates: EventDates(start: EventStart(dateTime: Date().addingTimeInterval(86400))),
             embedded: EventEmbedded(venues: [
                 Venue(name: "Queen Elizabeth Theatre",
                       city: VenueCity(name: "Vancouver"),
-                      state: VenueState(stateCode: "BC"))
+                      state: VenueState(stateCode: "BC"),
+                      address: VenueAddress(line1: "630 Hamilton St", line2: nil),
+                      location: VenueLocation(latitude: "49.2766", longitude: "-123.1158"))
             ])
         )
 

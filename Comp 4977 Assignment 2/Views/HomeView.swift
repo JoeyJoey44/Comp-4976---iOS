@@ -15,11 +15,11 @@ struct HomeView: View {
         let vm = viewModel ?? HomeViewViewModel()
         _viewModel = StateObject(wrappedValue: vm)
     }
-
+    
     var body: some View {
         NavigationView {
             VStack {
-
+                
                 // MARK: DMA Picker
                 Picker("City", selection: $viewModel.selectedDMA) {
                     ForEach(viewModel.dmaOptions, id: \.code) { dma in
@@ -31,34 +31,37 @@ struct HomeView: View {
                 .onChange(of: viewModel.selectedDMA) { _ in
                     Task { await viewModel.fetchEvents() }
                 }
-
+                
                 // MARK: Loading
                 if viewModel.isLoading {
                     ProgressView("Loading events...")
                         .foregroundColor(.white)
                         .padding()
                 }
-
+                
                 // MARK: Error
                 if !viewModel.errorMessage.isEmpty {
                     Text(viewModel.errorMessage)
                         .foregroundColor(.red)
                         .padding()
                 }
-
+                
                 // MARK: Events List
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: 16) {
-
+                        
                         ForEach(viewModel.eventsByDate.keys.sorted(), id: \.self) { date in
                             Section(header: Text(date.formatted(date: .abbreviated, time: .omitted))
                                 .font(.title3)
                                 .foregroundColor(.white)
                                 .padding(.top)) {
-
+                                    
                                     ForEach(viewModel.eventsByDate[date] ?? []) { event in
-                                        EventRowView(event: event)
-                                            .padding(.horizontal)
+                                        NavigationLink(destination: EventDetailView(event: event)) {
+                                            EventRowView(event: event)
+                                                .padding(.horizontal)
+                                        }
+                                        
                                     }
                                 }
                         }
